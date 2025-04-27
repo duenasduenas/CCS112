@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +25,8 @@ class AdminController extends Controller
         [
             'name' => 'required',
             'stock' => 'required',
-            'image' => 'required'
+            'image' => 'required',
+            'price' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -39,10 +41,7 @@ class AdminController extends Controller
         $product->name = $request->name;
         $product->stock = $request->stock;
         $product->image = $request->image;
-
-
-        
-        
+        $product->price = $request->price;
 
         $product->save();
 
@@ -59,7 +58,8 @@ class AdminController extends Controller
         [
             'name' => 'required',
             'stock' => 'required',
-            'image' => 'required'
+            'image' => 'required',
+            'price' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -75,6 +75,8 @@ class AdminController extends Controller
             $product->name = $request->name;
             $product->stock = $request->stock;
             $product->image = $request->image;
+            $product->price = $request->price;
+            
 
             $product->save();
 
@@ -91,6 +93,18 @@ class AdminController extends Controller
     public function deleteProduct($id){
         {
             $product=Product::find($id);
+
+            if (!$product) {
+                return response()->json(['message'=>'Item Not Found'],404);
+            }
+
+            $isInOrder = Order::where('item_id',$id)->exists();
+
+            if ($isInOrder) {
+                return response()->json(['message'=>'Item cannot be deleted as it is part of an ordered list'],404);
+            }
+
+
             $product->delete();
 
             $data=[
