@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,7 @@ Route::get('admin',[AdminController::class,'getProduct']);
 Route::post('admin',[AdminController::class,'createProduct']);
 Route::put('admin/edit/{id}',[AdminController::class,'editProduct']);
 Route::delete('admin/edit/{id}',[AdminController::class,'deleteProduct']);
+
+
+Route::get('order',[OrderController::class,'getOrder']);
+Route::post('order',[OrderController::class,'createOrder']);

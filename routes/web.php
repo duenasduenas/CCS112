@@ -5,7 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
-    return ['Laravel 12' => app()->version()];
+    return ['Error' => app()->version()];
 });
 
 

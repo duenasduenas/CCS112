@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('name');
+            $table->integer('stock');
             $table->decimal('price',8,2);
             $table->longText('details');
             $table->timestamps();
