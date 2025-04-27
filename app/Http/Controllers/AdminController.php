@@ -98,7 +98,7 @@ class AdminController extends Controller
                 return response()->json(['message'=>'Item Not Found'],404);
             }
 
-            $isInOrder = Order::where('item_id',$id)->exists();
+            $isInOrder = Order::where('product_id', $id)->exists();
 
             if ($isInOrder) {
                 return response()->json(['message'=>'Item cannot be deleted as it is part of an ordered list'],404);
